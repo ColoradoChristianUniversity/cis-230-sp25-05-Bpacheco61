@@ -72,9 +72,11 @@ Operation SelectOperation(out string firstNumberName, out string secondNumberNam
 {
     return operation switch
     {
+        Operation.Addition => ("Augend", "Addend", "+"),
         Operation.Subtraction => ("Minuend", "Subtrahend", "-"),
         Operation.Multiplication => ("Multiplicand", "Multiplier", "*"),
         Operation.Division => ("Dividend", "Divisor", "/"),
+        Operation.Modulus => ("Dividend", "Divisor", "%"),
         Operation.Power => ("Base", "Exponent", "^"),
         Operation.SquareRoot => ("Radicand", "Root", "√"),
         _ => throw new ArgumentOutOfRangeException(nameof(operation), operation, null)
@@ -99,9 +101,11 @@ static float Calculate(Operation operation, float firstNumber, float secondNumbe
 
     return operation switch
     {
+        Operation.Addition => calcLogic.Add(firstNumber, secondNumber),
         Operation.Subtraction => calcLogic.Subtract(firstNumber, secondNumber),
         Operation.Multiplication => calcLogic.Multiply(firstNumber, secondNumber),
         Operation.Division => calcLogic.Divide(firstNumber, secondNumber),
+        Operation.Modulus => calcLogic.Modulus(firstNumber, secondNumber),
         Operation.Power => calcLogic.Power(firstNumber, secondNumber),
         Operation.SquareRoot => calcLogic.SquareRoot(firstNumber),
         _ => throw new ArgumentOutOfRangeException(nameof(operation), operation, null)
@@ -110,9 +114,11 @@ static float Calculate(Operation operation, float firstNumber, float secondNumbe
 
 enum Operation
 {
+    Addition,
     Subtraction,
     Multiplication,
     Division,
+    Modulus,
     Power,
     SquareRoot
 }
